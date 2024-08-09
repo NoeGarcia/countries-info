@@ -1,0 +1,114 @@
+body {
+    background: url('https://img.freepik.com/vector-gratis/antigua-plantilla-mapa-nautico_225004-981.jpg?w=1380&t=st=1723144462~exp=1723145062~hmac=04e4fc4f79542a89c8088e842896261fee7bb013d691f533a2b48e89eca22ce8') no-repeat center center fixed;
+    background-size: cover; /* Asures that the image cover all the background */
+    color: #F4D199; 
+    font-family: 'Roboto', sans-serif;
+}
+.container {
+    background-color: #8A3E00;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.4); /* Add a shadow */
+}
+.card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.4); /* Add a shadow */
+    border-radius: 8px;
+    background-color: #F4D199;
+    color:#4e1503;
+}
+.card-body {
+    flex: 1;
+}
+.search-box, .search-box:focus {
+    background-color: #f4d199;
+}
+.btn-primary, .btn-secondary {
+    background-color: #4e1503;
+    border-color: #4e1503;
+    color:#f4d199;
+}
+.btn-primary:hover, .btn-secondary:hover {
+    background-color: #9a641e;
+    border-color: #9a641e;
+    color:#ffffff;
+}
+.link-primary:link, .link-primary:visited{
+    color: #4e1503;
+}
+#map {
+    height: 400px;
+}
+table {
+    margin-top: 20px;
+}
+table th, table td {
+    text-align: center;
+}
+
+table.table-bordered > thead > tr > th {
+    border: 1px solid #fffda3;
+    background-color: #4e1503;
+    color:#F4D199;
+}
+table.table-bordered > tbody > tr > td {
+    border: 1px solid #fffda3;
+    background-color: #F4D199;
+    color:#4e1503;
+}
+.table-responsive{
+    overflow-x: auto;
+}
+
+/* Hides the <h1> and the search form when index.ejs is showing a single country */
+.hide-when-country {
+    display: none;
+}
+
+img {
+    border-radius: 5px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .d-flex {
+        flex-direction: column; /* Stack the columns vertically on small screens */
+    }
+    
+    .card-body {
+        padding: 15px; /* Reduced padding for better mobile experience */
+    }
+    
+    #map {
+        height: 250px; /* Further adjust map height for smaller screens */
+    }
+
+    .text-center {
+        text-align: center;
+    }
+    .table-responsive {
+        margin-bottom: 1rem;
+        overflow-x: auto;
+    }
+}
+
+@media (max-width: 576px) {
+    .container {
+        padding: 15px; /* Reduced padding for very small screens */
+    }
+
+    .btn {
+        font-size: 14px; /* Smaller button text on very small screens */
+        padding: 10px 15px; /* Adjusted button padding */
+    }
+    
+    .table thead th {
+        font-size: 12px;
+    }
+
+    .table td, .table th {
+        padding: 0.5rem;
+    }
+}

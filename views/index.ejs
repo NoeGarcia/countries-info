@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country List</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Leaflet CSS for maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="/styles.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <!-- Section shown only when listing all countries -->
+        <div class="<% if (country) { %>hide-when-country<% } %>">
+            <h1 class="text-center mb-4">Country List</h1>
+
+            <!-- Search Form -->
+            <form action="/search" method="get" class="mb-4">
+                <div class="form-group">
+                    <input type="text" name="name" class="form-control search-box" placeholder="Search by common country name" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Search</button>
+            </form>
+        </div>
+
+        <% if (country) { %>
+            <!-- Display country details -->
+            <h2 class="text-center mb-4">Country Details</h2>
+            <div class="d-flex flex-column flex-md-row"> <!-- Responsive flex direction -->
+                <!-- Column for country details -->
+                <div class="flex-fill mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title text-center"><%= country.name.common %></h5>
+                            <p><strong>Capital:</strong> <%= country.capital ? country.capital[0] : 'Not available' %></p>
+                            <p><strong>Region:</strong> <%= country.region %></p>
+                            <p><strong>Subregion:</strong> <%= country.subregion %></p>
+                            <p><strong>Population:</strong> <%= country.population.toLocaleString() %></p>
+                            <p><strong>Currency:</strong> <%= country.currencies ? Object.values(country.currencies)[0].name : 'Not available' %></p>
+                            <p><strong>Languages:</strong> <%= country.languages ? Object.values(country.languages).join(', ') : 'Not available' %></p>
+                            <p><strong>Flag:</strong> <img src="<%= country.flags.svg %>" alt="Bandera" style="width: 150px; height: auto;"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column for the map -->
+                <% if (country.latlng) { %>
+                    <div class="flex-fill mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">Location on Map</h5>
+                                <div id="map"></div>
+                                <script>
+                                    window.onload = () => {
+                                        if (typeof initMap === 'function') {
+                                            initMap(<%= country.latlng[0] %>, <%= country.latlng[1] %>);
+                                        }
+                                    };
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+            
+            <!-- Button to go back to the list of countries -->
+            <div class="text-center mt-4">
+                <a href="/" class="btn btn-secondary btn-block">Back to country list</a>
+            </div>
+        <% } else { %>
+            <!-- Show table for countries-->
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Capital</th>
+                            <th>Region</th>
+                            <th>Subregion</th>
+                            <th>Population</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% countries.forEach(country => { %>
+                            <tr>
+                                <td><a href="/country/<%= country.cca3 %>" class="link-primary cca3"><%= country.name.common %></td></a>
+                                <td><%= country.capital ? country.capital[0] : 'Not available' %></td>
+                                <td><%= country.region %></td>
+                                <td><%= country.subregion %></td>
+                                <td><%= country.population.toLocaleString() %></td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        <% } %>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="/map.js" defer></script>
+</body>
+</html>
